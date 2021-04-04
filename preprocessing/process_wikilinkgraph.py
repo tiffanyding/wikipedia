@@ -18,8 +18,8 @@ wiki_file = f'enwiki.wikilink_graph.{year}-03-01.csv.gz'
 
 path = os.path.join(folder, wiki_file)
 
-def exclude_redirection_pages(df):
-    '''Filter out redirection pages'''
+def exclude_redirection_pages_v0(df):
+    '''Filters out pages with in-degree = 0 and out-degree = 1'''
 
     nodes_1 = set(df.page_title_from.unique())
     nodes_2 = set(df.page_title_to.unique())
@@ -39,6 +39,26 @@ def exclude_redirection_pages(df):
 
     return df_clean
 
+def exclude_redirection_pages(df):
+    '''
+    Filters out pages not in https://figshare.com/articles/dataset/Topics_for_each_Wikipedia_Article_across_Languages/12127434.
+    This function assumes that this file has been downlaoded to data/page_list.csv.gz, which can be 
+    done using scripts/download_page_list.sh
+    '''
+    d = pd.read_csv('data/page_list.csv.gz', 
+                 compression='gzip',
+                 usecols=['page_title', 'wiki_db'])
+
+    # Filter for enwiki only
+    d = d[d['wiki_db'] == 'enwiki']
+    
+    nodes_clean = set(d['page_title'])
+    print('Size of enwiki in April 15 2020:', len(nodes_clean))
+
+    df_clean = df[(df['page_title_from'].isin(nodes_clean)) & (df['page_title_to'].isin(nodes_clean))]
+
+    return df_clean
+
 
 def convert_df_to_coo_matrix(df):
     '''Returns sparse matrix in coordinate format.'''
@@ -46,6 +66,8 @@ def convert_df_to_coo_matrix(df):
     nodes_1 = set(df_clean.page_title_from.unique())
     nodes_2 = set(df_clean.page_title_to.unique())
     nodes_clean = list(nodes_1.union(nodes_2))
+
+    print('Number of non-redirection pages:', len(nodes_clean))
 
     idx_to_title = {i:n for i,n in enumerate(nodes_clean)}
     title_to_idx = {n:i for i,n in idx_to_title.items()}
@@ -86,6 +108,11 @@ with open(title_to_idx_path, 'wb') as f:
     pickle.dump(title_to_idx, f)
 print(f'Saved map from page title to index to {title_to_idx_path}')
 
+
+# d = pd.read_csv('data/page_list.csv.gz', 
+#                  nrows=10,
+#                  compression='gzip') 
+# print(d.columns)           
 
 
 print(f'Time taken: {(time.time() - st) / 60:.2f} min')
