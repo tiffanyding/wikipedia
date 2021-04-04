@@ -12,7 +12,7 @@ script = ('#!/bin/bash\n'
     'source env/bin/activate\n'
     f'cd {os.getcwd()}\n'
     f'python process_clickstream.py'
-    f' $(CLICKSTREAM_FILE) $(TITLE_TO_IDX_FILE) $(SAVE_PREFIX) \n')
+    f' ${CLICKSTREAM_FILE} ${TITLE_TO_IDX_FILE} ${SAVE_PREFIX} \n')
 
 with open(script_file, 'w') as f:
     f.write(script)
