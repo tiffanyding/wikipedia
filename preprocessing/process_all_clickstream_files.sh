@@ -15,9 +15,9 @@ do
     echo "Processing file $CLICKSTREAM_FILE"
 
     # # For debugging, uncomment the following lines and comment out 'qsub ...'
-    bash preprocessing/process_clickstream_file.sh
+    # bash preprocessing/process_clickstream_file.sh
 
     # # Use -V flag to pass in environmental variables
-    # qsub -l day -V -l vf=16G preprocessing/process_clickstream_file.sh
+    qsub -l day -V -l vf=16G preprocessing/process_clickstream_file.sh
  
 done
