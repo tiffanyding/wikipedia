@@ -12,7 +12,7 @@ do
     export SAVE_PREFIX="data/clickstream/cleaned/${month}_"
 
     
-    echo "Processing file $FILE_NAME"
+    echo "Processing file $CLICKSTREAM_FILE"
 
     # # For debugging, uncomment the following lines and comment out 'qsub ...'
     bash process_clickstream_file.sh
