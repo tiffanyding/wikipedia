@@ -18,6 +18,6 @@ do
     # bash preprocessing/process_clickstream_file.sh
 
     # # Use -V flag to pass in environmental variables
-    qsub -l day -V -l vf=16G preprocessing/process_clickstream_file.sh
+    qsub -cwd -l day -V -l vf=16G preprocessing/process_clickstream_file.sh
  
 done
