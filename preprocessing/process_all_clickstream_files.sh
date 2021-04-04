@@ -4,7 +4,7 @@
 months=("2018-01" "2018-02" "2018-03" "2018-04" "2018-05" "2018-06" 
         "2018-07" "2018-08" "2018-09" "2018-10" "2018-11" "2018-12")
 
-export TITLE_TO_IDX_FILE="data/clickstream/data/wikilinkgraph/title_to_idx_2018.pkl"
+export TITLE_TO_IDX_FILE="data/wikilinkgraph/title_to_idx_2018.pkl"
     
 for month in ${months[@]}
 do
