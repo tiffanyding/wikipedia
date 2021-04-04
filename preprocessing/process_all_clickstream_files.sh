@@ -9,7 +9,7 @@ export TITLE_TO_IDX_FILE="data/wikilinkgraph/title_to_idx_2018.pkl"
 for month in ${months[@]}
 do
     export CLICKSTREAM_FILE="data/clickstream/clickstream-enwiki-${month}.tsv.gz"
-    export SAVE_PREFIX="data/clickstream/cleaned/${month}_"
+    export SAVE_PREFIX="data/clickstream/cleaned/${month}"
 
     
     echo "Processing file $CLICKSTREAM_FILE"
