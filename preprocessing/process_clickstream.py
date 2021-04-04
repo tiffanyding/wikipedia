@@ -23,8 +23,9 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     with open(title_to_idx_file, 'rb') as f:
         title_to_idx = pickle.load(f)
 
-    print(df.head())
+    # print(df.head())
     # Convert underscores in page titles to spaces
+    print('Converting underscores in page titles to spaces...')
     df['prev'] = df['prev'].apply(lambda x: str(x).replace('_', ' '))
     df['curr'] = df['curr'].apply(lambda x: str(x).replace('_', ' '))
     print(df.head())
