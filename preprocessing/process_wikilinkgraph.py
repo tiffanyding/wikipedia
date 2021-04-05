@@ -59,7 +59,7 @@ def exclude_redirection_pages(df):
 
     df_clean = df[(df['page_title_from'].isin(nodes_clean)) & (df['page_title_to'].isin(nodes_clean))]
 
-    print('df_clean', d_clean.head(30))
+    print('df_clean', df_clean.head(30))
     return df_clean
 
 
@@ -86,7 +86,7 @@ def convert_df_to_coo_matrix(df):
 ## ---- PROCESS CSV ----
 df = pd.read_csv(path, 
                  sep='\t', 
-                 nrows=1000,
+                 nrows=1000, # !!! Comment out when not 
                  compression='gzip', 
                  usecols=['page_title_from','page_title_to'])
 print(df.head())
