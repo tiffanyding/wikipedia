@@ -15,7 +15,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     # Read in files
     print('File: ', zip_file)
     df = pd.read_csv(zip_file, compression='gzip', sep='\t',
-                # nrows=10000, # Can uncomment when debugging
+                nrows=10000, # Can uncomment when debugging
                 names=['prev', 'curr', 'type', 'n'])
     num_rows = len(df)
     print('Number of rows:', num_rows)
@@ -24,7 +24,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
         title_to_idx = pickle.load(f)
     num_pages = len(title_to_idx)
 
-    print(title_to_idx.keys()[:200])
+    print(list(title_to_idx.keys()))
 
     # print(df.head())
     # Convert underscores in page titles to spaces
@@ -46,6 +46,10 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     # clickstream files, so we exclude rows that are marked 'internal' but one or both
     # of the pages are not in title_to_idx
     num_rows_before = len(df)
+
+    print('**** Rows with curr not in WikiLinkGraphs:')
+    print(df[~(df['curr'].isin(title_to_idx))])
+
     df = df[~((df['type'] == 'link') & (~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx))))]
     print(f'Excluded {num_rows_before - len(df)} rows that include pages not present in WikiLinkGraphs')
 
