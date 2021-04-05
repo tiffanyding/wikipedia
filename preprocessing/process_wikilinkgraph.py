@@ -52,14 +52,20 @@ def exclude_redirection_pages(df):
     # Filter for enwiki only
     d = d[d['wiki_db'] == 'enwiki']
 
-    print('d', d.head(30))
+    # Convert underscores in page titles to spaces
+    print('Converting underscores in page titles to spaces...')
+    d['page_title'] = d['page_title'].apply(lambda x: str(x).replace('_', ' '))
+
+    print('d:', d.head(30))
     
     nodes_clean = set(d['page_title'])
     print('Size of enwiki in April 15 2020:', len(nodes_clean))
 
     df_clean = df[(df['page_title_from'].isin(nodes_clean)) & (df['page_title_to'].isin(nodes_clean))]
+    print(f'Excluded {len(df) - len(df_clean)} out of {len(df)} edges connected to pages not present in https://figshare.com/articles/dataset/Topics_for_each_Wikipedia_Article_across_Languages/12127434')
 
-    print('df_clean', df_clean.head(30))
+
+    print('df_clean:', df_clean.head(30))
     return df_clean
 
 
