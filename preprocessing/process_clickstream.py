@@ -42,7 +42,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     # clickstream files, so we exclude rows that are marked 'internal' but one or both
     # of the pages are not in title_to_idx
     num_rows_before = len(df)
-    df = df[~((df['type'] == 'link') & ~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx)))]
+    df = df[~((df['type'] == 'link') & (~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx))))]
     print(f'Excluded {num_rows_before - len(df)} rows that include pages not present in WikiLinkGraphs')
 
     # Map page titles to indices
