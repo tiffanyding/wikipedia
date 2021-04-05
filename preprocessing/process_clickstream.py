@@ -49,6 +49,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
 
     print('Number of rows with type = external:', len(df[df['type']=='external']))
     print('Number of rows with type = link:', len(df[df['type']=='link']))
+    print(df.head(n=20))
 
     # Map page titles to indices
     df['start_idx'] = df['prev'].apply(lambda x: title_to_idx.get(x, external_page_idx)) # Maps external pages to external_page_idx
