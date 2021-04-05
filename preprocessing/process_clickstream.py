@@ -34,6 +34,8 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     # Filter out rows of type other (correspond to non-existent edges)
     df = df[~(df['type']=='other')]
     print('Number of rows with type != other:', len(df))
+    print('Number of rows with type = external:', len(df[df['type']=='external']))
+    print('Number of rows with type = link:', len(df[df['type']=='link']))
 
     # We will add an extra row to account for links from external vertices  
     external_page_idx = num_pages
