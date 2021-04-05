@@ -24,6 +24,8 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
         title_to_idx = pickle.load(f)
     num_pages = len(title_to_idx)
 
+    print(title_to_idx.keys()[:200])
+
     # print(df.head())
     # Convert underscores in page titles to spaces
     print('Converting underscores in page titles to spaces...')
