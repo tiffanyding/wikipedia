@@ -25,8 +25,8 @@ print('File list:', files)
 
 # Add matrices together
 aggregated_matrix = load_pickle_file(os.path.join(folder, files[0]))
-for path in range(1,len(files)):
-    m = load_pickle_file(os.path.join(folder, path))
+for i in range(1,len(files)):
+    m = load_pickle_file(os.path.join(folder, files[i]))
     aggregated_matrix = aggregated_matrix + m
 
 # Save aggregated pages
