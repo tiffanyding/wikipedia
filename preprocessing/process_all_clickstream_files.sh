@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# months=("2018-01" "2018-02")
-months=("2018-01" "2018-02" "2018-03" "2018-04" "2018-05" "2018-06" 
-        "2018-07" "2018-08" "2018-09" "2018-10" "2018-11" "2018-12")
+months=("2018-05" "2018-06" "2018-07" "2018-08")
+# months=("2018-01" "2018-02" "2018-03" "2018-04" "2018-05" "2018-06" 
+#         "2018-07" "2018-08" "2018-09" "2018-10" "2018-11" "2018-12")
 
 export TITLE_TO_IDX_FILE="data/wikilinkgraph/title_to_idx_2018.pkl"
     
@@ -18,6 +18,6 @@ do
     # bash preprocessing/process_clickstream_file.sh
 
     # # Use -V flag to pass in environmental variables
-    qsub -cwd -l day -V -l vf=16G preprocessing/process_clickstream_file.sh
+    qsub -cwd -l day -V -l vf=32G preprocessing/process_clickstream_file.sh
  
 done
