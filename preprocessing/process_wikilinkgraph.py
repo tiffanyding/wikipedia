@@ -12,7 +12,7 @@ st = time.time()
 folder = 'data/wikilinkgraph/'
 
 # year = '2002' # Small dataset to debug with
-year = '2002'
+year = '2018'
 
 wiki_file = f'enwiki.wikilink_graph.{year}-03-01.csv.gz' 
 
