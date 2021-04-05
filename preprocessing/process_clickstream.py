@@ -47,6 +47,9 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     df = df[~((df['type'] == 'link') & (~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx))))]
     print(f'Excluded {num_rows_before - len(df)} rows that include pages not present in WikiLinkGraphs')
 
+    print('Number of rows with type = external:', len(df[df['type']=='external']))
+    print('Number of rows with type = link:', len(df[df['type']=='link']))
+
     # Map page titles to indices
     df['start_idx'] = df['prev'].apply(lambda x: title_to_idx.get(x, external_page_idx)) # Maps external pages to external_page_idx
     df['end_idx'] = df['curr'].apply(lambda x: title_to_idx[x])
