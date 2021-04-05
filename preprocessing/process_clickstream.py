@@ -48,7 +48,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     num_rows_before = len(df)
 
     print('**** Rows with curr not in WikiLinkGraphs:')
-    print(df[~(df['curr'].isin(title_to_idx))])
+    print(df['curr'][~(df['curr'].isin(title_to_idx))])
 
     df = df[~((df['type'] == 'link') & (~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx))))]
     print(f'Excluded {num_rows_before - len(df)} rows that include pages not present in WikiLinkGraphs')
