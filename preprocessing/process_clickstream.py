@@ -22,6 +22,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
 
     with open(title_to_idx_file, 'rb') as f:
         title_to_idx = pickle.load(f)
+    num_pages = len(title_to_idx)
 
     # print(df.head())
     # Convert underscores in page titles to spaces
@@ -34,8 +35,8 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     df = df[~(df['type']=='other')]
     print('Number of rows with type != other:', len(df))
 
-    # We will add an extra row to account for links from external vertices
-    external_page_idx = len(title_to_idx)
+    # We will add an extra row to account for links from external vertices  
+    external_page_idx = num_pages
 
     # There may be a mismatch between the pages that exist in WikiLinkGraphs and the 
     # clickstream files, so we exclude rows that are marked 'internal' but one or both
@@ -51,7 +52,7 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     rows = df['start_idx']  # Not a copy, just a reference.
     cols = df['end_idx']
     data = df['n']
-    matrix = ss.coo_matrix((data, (rows, cols)))
+    matrix = ss.coo_matrix((data, (rows, cols)), shape=(num_pages+1, num_pages))
     matrix = ss.csc_matrix(matrix)
 
     # Save matrix
