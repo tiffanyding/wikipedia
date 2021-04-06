@@ -66,8 +66,8 @@ def exclude_redirection_pages(df):
     df_clean = df[idx1 & idx2]
     print(f'Excluded {len(df) - len(df_clean)} out of {len(df)} edges connected to pages not present in https://figshare.com/articles/dataset/Topics_for_each_Wikipedia_Article_across_Languages/12127434')
     print('Excluded titles:')
-    print(df['page_title_from'][~idx1])
-    print(df['page_title_to'][~idx2])
+    print(list(df['page_title_from'][~idx1]))
+    print(list(df['page_title_to'][~idx2]))
 
     # print('df_clean:', df_clean.head(30))
     return df_clean
