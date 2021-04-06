@@ -96,7 +96,7 @@ def convert_df_to_coo_matrix(df):
 ## ---- PROCESS CSV ----
 df = pd.read_csv(path, 
                  sep='\t', 
-                 nrows=1000, # !!! Comment out when not 
+                #  nrows=1000, # !!! Comment out when not debugging
                  compression='gzip', 
                  usecols=['page_title_from','page_title_to'])
 print(df.head())
