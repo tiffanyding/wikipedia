@@ -14,18 +14,16 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     '''
     # Read in files
     print('File: ', zip_file)
-    df = pd.read_csv(zip_file, compression='gzip', sep='\t',
-                # nrows=10000, # Can uncomment when debugging
-                names=['prev', 'curr', 'type', 'n'])
+    # df = pd.read_csv(zip_file, compression='gzip', sep='\t',
+    #             nrows=10000, # Can uncomment when debugging
+    #             names=['prev', 'curr', 'type', 'n'])
     num_rows = len(df)
     print('Number of rows:', num_rows)
 
     with open(title_to_idx_file, 'rb') as f:
         title_to_idx = pickle.load(f)
     num_pages = len(title_to_idx)
-
-    print(list(title_to_idx.keys()))
-
+    
     # print(df.head())
     # Convert underscores in page titles to spaces
     print('Converting underscores in page titles to spaces...')
