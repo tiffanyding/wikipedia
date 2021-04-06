@@ -42,7 +42,7 @@ def exclude_redirection_pages_v0(df):
 def exclude_redirection_pages(df):
     '''
     Filters out pages not in https://figshare.com/articles/dataset/Topics_for_each_Wikipedia_Article_across_Languages/12127434.
-    This function assumes that this file has been downlaoded to data/page_list.csv.gz, which can be 
+    This function assumes that this file has been downloaded to data/page_list.csv.gz, which can be 
     done using scripts/download_page_list.sh
     '''
     d = pd.read_csv('data/page_list.csv.gz', 
@@ -56,16 +56,20 @@ def exclude_redirection_pages(df):
     print('Converting underscores in page titles to spaces...')
     d['page_title'] = d['page_title'].apply(lambda x: str(x).replace('_', ' '))
 
-    print('d:', d.head(30))
+    # print('d:', d.head(30))
     
     nodes_clean = set(d['page_title'])
     print('Size of enwiki in April 15 2020:', len(nodes_clean))
 
-    df_clean = df[(df['page_title_from'].isin(nodes_clean)) & (df['page_title_to'].isin(nodes_clean))]
+    idx1 = (df['page_title_from'].isin(nodes_clean))
+    idx2 = (df['page_title_to'].isin(nodes_clean))
+    df_clean = df[idx1 & idx2]
     print(f'Excluded {len(df) - len(df_clean)} out of {len(df)} edges connected to pages not present in https://figshare.com/articles/dataset/Topics_for_each_Wikipedia_Article_across_Languages/12127434')
+    print('Excluded titles:')
+    print(df['page_title_from'][idx1])
+    print(df['page_title_to'][idx2])
 
-
-    print('df_clean:', df_clean.head(30))
+    # print('df_clean:', df_clean.head(30))
     return df_clean
 
 
