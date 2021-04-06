@@ -48,7 +48,11 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     print('**** Rows with curr not in WikiLinkGraphs:')
     print(df['curr'][~(df['curr'].isin(title_to_idx))])
 
-    df = df[~((df['type'] == 'link') & (~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx))))]
+    idx1 = (df['type'] == 'link') & ~(df['prev'].isin(title_to_idx))
+    idx2 = ~(df['curr'].isin(title_to_idx))
+    df = df[~(idx1 & idx2)]
+
+    # df = df[~((df['type'] == 'link') & (~(df['prev'].isin(title_to_idx)) | ~(df['curr'].isin(title_to_idx))))]
     print(f'Excluded {num_rows_before - len(df)} rows that include pages not present in WikiLinkGraphs')
 
     print('Number of rows with type = external:', len(df[df['type']=='external']))
