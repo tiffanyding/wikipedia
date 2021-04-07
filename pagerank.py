@@ -47,12 +47,12 @@ if __name__ == '__main__':
     A_path = f'data/wikilinkgraph/adjacency_matrix_{year}.pkl'
 
     # # Uncomment to test code by creating random matrix of 0s and 1s
-    num_pages = 1000
-    A = np.random.rand(num_pages, num_pages)
-    A = ss.csc_matrix(A)
+    # num_pages = 1000
+    # A = np.random.rand(num_pages, num_pages)
+    # A = ss.csc_matrix(A)
 
-    # with open(A_path, 'rb') as f:
-    #     A = pickle.load(f)
+    with open(A_path, 'rb') as f:
+        A = pickle.load(f)
 
     pr = compute_unweighted_pagerank(A, d=.85, tol=1e-6)
 
