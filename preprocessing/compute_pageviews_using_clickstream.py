@@ -10,7 +10,7 @@ import time
 st = time.time()
 
 # Folder with clickstream data
-folder = 'data/clickstream'
+clickstream_folder = 'data/clickstream'
 
 year = '2018'
 
@@ -22,10 +22,10 @@ title_to_idx_path = f'data/wikilinkgraph/title_to_idx_{year}.pkl'
 save_folder = 'results'
 
 # Location to save pageviews csv to
-save_csv_to = f'{folder}/pageviews_{year}.csv'
+save_csv_to = f'{save_folder}/pageviews_{year}.csv'
 
 # Location to save pageviews np array to
-save_array_to = f'{folder}s/pageviews_{year}.npy'
+save_array_to = f'{save_folder}/pageviews_{year}.npy'
 
 # -------------------------------
 
@@ -39,7 +39,7 @@ print('title_to_idx keys sample:', list(title_to_idx.keys())[:20])
 
 # Get list of clickstream file names 
 files = []
-_, _, files_in_dir = next(os.walk(folder))
+_, _, files_in_dir = next(os.walk(clickstream_folder))
 for f in files_in_dir:
     if f.endswith('tsv.gz'):
         files.append(f)
@@ -53,7 +53,7 @@ for zip_file in files:
 
     # Read in files
     print('File: ', zip_file)
-    df = pd.read_csv(os.path.join(folder, zip_file), compression='gzip', sep='\t',
+    df = pd.read_csv(os.path.join(clickstream_folder, zip_file), compression='gzip', sep='\t',
                 # nrows=1000, # can uncomment to test
                 names=['prev', 'curr', 'type', 'n'],
                 usecols=['curr', 'n'])
