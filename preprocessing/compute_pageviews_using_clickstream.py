@@ -70,7 +70,7 @@ print('title_to_idx keys sample:', list(title_to_idx.keys())[:20])
 # final_counts.to_csv(save_csv_to)
 # print(f'Saved pageviews csv to {save_csv_to}')
 
-final_counts = pd.read_csv(save_csv_to, names=['page_idx', 'n'])
+final_counts = pd.read_csv(save_csv_to)
 print('final_counts:', final_counts)
 
 # Convert pageviews csv to np array and save
