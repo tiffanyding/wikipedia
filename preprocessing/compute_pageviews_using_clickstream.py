@@ -16,13 +16,20 @@ year = '2018'
 # Path to page title to index map
 title_to_idx_path = f'data/wikilinkgraph/title_to_idx_{year}.pkl'
 
+
+# Specify save locations
+save_folder = 'results'
+
 # Location to save pageviews csv to
-save_csv_to = f'results/pageviews_{year}.csv'
+save_csv_to = f'{folder}/pageviews_{year}.csv'
 
 # Location to save pageviews np array to
-save_array_to = f'results/pageviews_{year}.npy'
+save_array_to = f'{folder}s/pageviews_{year}.npy'
 
 # -------------------------------
+
+# Make save folder if necessary
+pathlib.Path(save_folder).mkdir(exist_ok=True)
 
 # Read in title_to_idx map
 with open(title_to_idx_path, 'rb') as f:
