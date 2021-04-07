@@ -18,6 +18,8 @@ def compute_unweighted_pagerank(A, d=.85, tol=1e-6):
 
     # Compute uniform transition probability matrix
     degree_seq = np.squeeze(np.asarray(A.sum(axis=1)))
+    # Add 1 to each degree so that no vertex has out-degree zero
+    degree_seq += 1
     inv_D = ss.diags(1 / degree_seq, format='csc')
     P = inv_D * A
 
