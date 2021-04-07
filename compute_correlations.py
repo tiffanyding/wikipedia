@@ -21,6 +21,9 @@ year = '2018'
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
 pageviews = np.load(f'results/pageviews_{year}.npy')
 
+print('pageranks', pageranks.shape)
+print('pageviews', pageviews.shape)
+
 corr1 = compute_corrcoeff(pageranks, pageviews)
 print(f'Correlation between page views and PageRank: {corr1:.3f}')
 
