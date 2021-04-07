@@ -40,6 +40,9 @@ def compute_weighted_pagerank(P):
     # TODO (use clickstream graph)
     pass
 
+def random_walk_model1(P):
+    pass
+
 
 if __name__ == '__main__':
 
@@ -59,7 +62,7 @@ if __name__ == '__main__':
     pr = compute_unweighted_pagerank(A, d=.85, tol=1e-6)
 
     ## Save results
-    save_folder = 'data/results'
+    save_folder = 'results'
     save_to = f'{save_folder}/pagerank_{year}.pkl'
     # Make folder if necessary
     pathlib.Path(save_folder).mkdir(exist_ok=True)
