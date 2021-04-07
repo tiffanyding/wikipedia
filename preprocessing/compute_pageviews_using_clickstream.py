@@ -40,7 +40,7 @@ for zip_file in files:
     # Read in files
     print('File: ', zip_file)
     df = pd.read_csv(os.path.join(folder, zip_file), compression='gzip', sep='\t',
-                nrows=1000,
+                # nrows=1000, # can uncomment to test
                 names=['prev', 'curr', 'type', 'n'],
                 usecols=['curr', 'n'])
 
