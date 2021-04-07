@@ -12,7 +12,7 @@ st = time.time()
 # Folder with clickstream data
 clickstream_folder = 'data/clickstream'
 
-year = '2002'
+year = '2018'
 
 # Path to page title to index map
 title_to_idx_path = f'data/wikilinkgraph/title_to_idx_{year}.pkl'
@@ -28,6 +28,8 @@ save_csv_to = f'{save_folder}/pageviews_{year}.csv'
 save_array_to = f'{save_folder}/pageviews_{year}.npy'
 
 # -------------------------------
+
+print(f'Year: {year}')
 
 # Make save folder if necessary
 pathlib.Path(save_folder).mkdir(exist_ok=True)
