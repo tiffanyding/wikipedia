@@ -15,7 +15,7 @@ def load_pickle_file(path):
     return loaded_file
 
 def compute_corrcoeff(arr1, arr2):
-    X = p.stack((arr1, arr2), axis=1)
+    X = np.stack((arr1, arr2), axis=1)
     print('X', X.shape)
     return np.corrcoef(X)[0][1]
 
