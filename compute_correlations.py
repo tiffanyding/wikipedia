@@ -15,7 +15,7 @@ def load_pickle_file(path):
     return loaded_file
 
 def compute_corrcoeff(arr1, arr2):
-    return np.corrcoef(arr1, arr2)[0][1]
+    return np.corrcoef([arr1, arr2])[0][1]
 
 year = '2018'
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
