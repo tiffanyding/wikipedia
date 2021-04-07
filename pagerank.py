@@ -18,8 +18,8 @@ def compute_unweighted_pagerank(A, d=.85, tol=1e-6):
 
     # Compute uniform transition probability matrix
     degree_seq = np.squeeze(np.asarray(A.sum(axis=1)))
-    D = ss.diags(degree_seq, format='csc')
-    P = inv(D) * A
+    inv_D = ss.diags(1 / degree_seq, format='csc')
+    P = inv_D * A
 
     # Iterate until convergence of l1 norm
     pr = (1 / n) * np.matrix(np.ones((1,n)))
