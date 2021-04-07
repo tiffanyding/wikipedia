@@ -17,7 +17,7 @@ def compute_unweighted_pagerank(A, d=.85, tol=1e-6):
     n = A.shape[0]
 
     # Compute uniform transition probability matrix
-    degree_seq = np.sum(A, 1)
+    degree_seq = np.squeeze(np.asarray(A.sum(axis=0)))
     D = ss.diags(degree_seq, format='csc')
     P = inv(D) * A
 
@@ -47,11 +47,12 @@ if __name__ == '__main__':
     A_path = f'data/wikilinkgraph/adjacency_matrix_{year}.pkl'
 
     # # Uncomment to test code by creating random matrix of 0s and 1s
-    # num_pages = 1000
-    # A = np.random.rand(num_pages, num_pages)
+    num_pages = 1000
+    A = np.random.rand(num_pages, num_pages)
+    A = ss.csc_matrix(A)
 
-    with open(A_path, 'rb') as f:
-        A = pickle.load(f)
+    # with open(A_path, 'rb') as f:
+    #     A = pickle.load(f)
 
     pr = compute_unweighted_pagerank(A, d=.85, tol=1e-6)
 
