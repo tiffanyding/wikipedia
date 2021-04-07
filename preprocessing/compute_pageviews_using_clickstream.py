@@ -71,16 +71,15 @@ print('title_to_idx keys sample:', list(title_to_idx.keys())[:20])
 # print(f'Saved pageviews csv to {save_csv_to}')
 
 final_counts = pd.read_csv(save_csv_to)
-print('final_counts:', final_counts)
 
-# Convert pageviews csv to np array and save
+## Convert pageviews csv to np array and save
 pageviews_arr = np.zeros((len(title_to_idx), 1))
 for _, row in final_counts.iterrows():
-    print('row:', row)
-    print('n:', row['n'])
     pageviews_arr[row['page_idx']] = row['n']
+
 # Check number of pages with 0 views
 print(f'{np.sum(pageviews_arr == 0)} out of {len(pageviews_arr)} pages have 0 views')
+# Save
 np.save(pageviews_arr, save_array_to)
 
 
