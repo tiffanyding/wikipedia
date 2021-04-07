@@ -75,6 +75,7 @@ final_counts = pd.read_csv(save_csv_to, names=['curr', 'n'])
 # Convert pageviews csv to np array and save
 pageviews_arr = np.zeros((len(title_to_idx), 1))
 for _, row in final_counts.iterrows():
+    print(row['n'])
     pageviews_arr[row['curr']] = row['n']
 # Check number of pages with 0 views
 print(f'{np.sum(pageviews_arr == 0)} out of {len(pageviews_arr)} pages have 0 views')
