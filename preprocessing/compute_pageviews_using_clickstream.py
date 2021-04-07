@@ -78,7 +78,7 @@ pageviews_arr = np.zeros((len(title_to_idx), 1))
 for _, row in final_counts.iterrows():
     print('row:', row)
     print('n:', row['n'])
-    pageviews_arr[row['page_idx]] = row['n']
+    pageviews_arr[row['page_idx']] = row['n']
 # Check number of pages with 0 views
 print(f'{np.sum(pageviews_arr == 0)} out of {len(pageviews_arr)} pages have 0 views')
 np.save(pageviews_arr, save_array_to)
