@@ -12,7 +12,7 @@ st = time.time()
 # Folder with clickstream data
 clickstream_folder = 'data/clickstream'
 
-year = '2018'
+year = '2002'
 
 # Path to page title to index map
 title_to_idx_path = f'data/wikilinkgraph/title_to_idx_{year}.pkl'
@@ -35,7 +35,7 @@ pathlib.Path(save_folder).mkdir(exist_ok=True)
 # Read in title_to_idx map
 with open(title_to_idx_path, 'rb') as f:
     title_to_idx = pickle.load(f)
-print('title_to_idx keys sample:', list(title_to_idx.keys())[:20])
+print('title_to_idx keys sample:', list(title_to_idx.keys())[:10])
 
 # Get list of clickstream file names 
 files = []
@@ -64,15 +64,15 @@ for zip_file in files:
     ct = df.groupby('curr').sum()
     counts = counts.append(pd.DataFrame(ct).reset_index())
 
+final_counts = pd.DataFrame(counts.groupby('curr').sum()).reset_index()
+
 # Map page titles to index. Pages that did not appear in WikiLinkGraph
 # are mapped to -1 and then removed
-counts['page_idx'] = counts['curr'].apply(
+final_counts['page_idx'] = final_counts['curr'].apply(
                 lambda x: title_to_idx.get(str(x).replace('_', ' '), -1))
 
-final_counts = pd.DataFrame(counts.groupby('page_idx').sum()).reset_index()
 # Remove counts for pages that did not appear in WikiLinkGraph
 final_counts = final_counts[final_counts['page_idx']!=-1]
-
 
 print(final_counts)
 
