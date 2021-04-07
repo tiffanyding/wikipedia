@@ -65,6 +65,7 @@ for zip_file in files:
 
     ct = df.groupby('curr').sum()
     counts = counts.append(pd.DataFrame(ct).reset_index())
+    print('Length of counts:', len(counts))
 
 final_counts = pd.DataFrame(counts.groupby('curr').sum()).reset_index()
 
