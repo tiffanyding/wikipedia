@@ -65,9 +65,11 @@ for zip_file in files:
 
     ct = df.groupby('curr').sum()
     counts = counts.append(pd.DataFrame(ct).reset_index())
+    print('Length of counts (before):', len(counts))
+    counts = pd.DataFrame(counts.groupby('curr').sum()).reset_index()
     print('Length of counts:', len(counts))
 
-final_counts = pd.DataFrame(counts.groupby('curr').sum()).reset_index()
+final_counts = counts
 
 # Map page titles to index. Pages that did not appear in WikiLinkGraph
 # are mapped to -1 and then removed
