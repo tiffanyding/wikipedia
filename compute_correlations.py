@@ -16,7 +16,10 @@ def load_pickle_file(path):
 
 def compute_corrcoeff(arr1, arr2):
     if arr1.ndim > 1 and arr1.shape[1] != 1:
-        arr1 = arr1.T
+        if ss.issparse(arr1):
+            arr1 = arr1.toarray().T
+        else:
+            arr1 = np.array(arr1).T
     if arr2.ndim > 1 and arr2.shape[1] != 1:
         if ss.issparse(arr2):
             arr2 = arr2.toarray().T
