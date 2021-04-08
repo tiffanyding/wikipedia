@@ -40,6 +40,7 @@ pageviews_internal = load_pickle_file(f'results/pageviews_internal_{year}.pkl')
 pi = load_pickle_file(f'data/clickstream/final/pi_{year}.pkl')
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
 weighted_pageranks = load_pickle_file(f'results/weighted_pagerank_{year}.pkl')
+rw1_01 = load_pickle_file(f'results/rw1_p=0.1_{year}.pkl')
 rw1_03 = load_pickle_file(f'results/rw1_p=0.3_{year}.pkl')
 rw1_08 = load_pickle_file(f'results/rw1_p=0.8_{year}.pkl')
 rw2 = load_pickle_file(f'results/rw2_{year}.pkl')
@@ -80,6 +81,9 @@ print(f'Correlation between internal page views and PageRank: {corr:.5f}')
 
 corr = compute_corrcoeff(pageviews_internal, weighted_pageranks)
 print(f'Correlation between internal page views and weighted PageRank: {corr:.5f}')
+
+corr = compute_corrcoeff(pageviews_internal, rw1_01)
+print(f'Correlation between internal page views and Model 1 (p=0.1): {corr:.5f}')
 
 corr = compute_corrcoeff(pageviews_internal, rw1_03)
 print(f'Correlation between internal page views and Model 1 (p=0.3): {corr:.5f}')

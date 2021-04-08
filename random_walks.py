@@ -138,10 +138,10 @@ if __name__ == '__main__':
     # save_to = f'{save_folder}/pagerank_{year}.pkl'
     # save_to_pickle(pr, save_to, description=f'{year} PageRanks')
 
-    # (b) PageRank (weighted)
-    weighted_pr = compute_weighted_pagerank(B, d=.85, tol=1e-6)
-    save_to = f'{save_folder}/weighted_pagerank_{year}.pkl'
-    save_to_pickle(weighted_pr, save_to, description=f'{year} weighted PageRanks')
+    # # (b) PageRank (weighted)
+    # weighted_pr = compute_weighted_pagerank(B, d=.85, tol=1e-6)
+    # save_to = f'{save_folder}/weighted_pagerank_{year}.pkl'
+    # save_to_pickle(weighted_pr, save_to, description=f'{year} weighted PageRanks')
 
 
     # (c) Random Walk Model 1
