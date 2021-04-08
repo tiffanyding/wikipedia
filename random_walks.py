@@ -17,6 +17,7 @@ def compute_unweighted_pagerank(adjacency_matrix, d=.85, tol=1e-6):
         d: damping factor. (1-d) is probability that surfer jumps to a random page
         tol: threshold for PageRank convergence
     '''
+    print('Computing unweighted PageRank...')
     A = adjacency_matrix
     n = A.shape[0]
 
@@ -41,8 +42,8 @@ def compute_unweighted_pagerank(adjacency_matrix, d=.85, tol=1e-6):
     return pr
 
 def compute_weighted_pagerank(B, d=.85, tol=1e-6):
+    print('Computing weighted PageRank...')
     # Uses clickstream graph to determine transition probabilities
-    print('B', B.shape)
     n = B.shape[0]
     P = B
     pr = (1 / n) * np.matrix(np.ones((1,n)))
@@ -61,7 +62,8 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     '''
     p = parameter of Geometric distribution
     '''
-    print(f'Geometric({p}):', [geom.pmf(x) for x in range(max_len)])
+    print('Performing random walk (Model 1)...')
+    print(f'Geometric({p}):', [geom.pmf(x, p) for x in range(max_len)])
 
     # Keep track of "number" of visits to each page over time 
     # (not an actual number because it can be fractional)
@@ -72,7 +74,7 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     # Probability distribution over pages
     curr_locs = pi
     for i in range(max_len):
-        num_visits += geom.cdf(i) * curr_locs 
+        num_visits += geom.cdf(i, p) * curr_locs 
         curr_locs = curr_locs * C
 
     return num_visits
@@ -81,6 +83,7 @@ def random_walk_model2(pi, C, max_len=30):
     '''
         max_len: Number of steps to simulate random walk for
     '''
+    print('Performing random walk (Model 2)...')
     pi = pi.todense()
     pi = np.append(np.array(pi).T, 0) # Add 0 probability of starting at external page
 
