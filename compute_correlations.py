@@ -21,6 +21,7 @@ def compute_corrcoeff(arr1, arr2):
     if arr2.ndim > 1 and arr2.shape[1] != 1:
         arr2 = np.array(arr2).T
 
+    print('arr2 here', arr2.shape)
     arr1 = np.squeeze(arr1)
     arr2 = np.squeeze(arr2)
 
