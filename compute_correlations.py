@@ -20,7 +20,7 @@ def compute_corrcoeff(arr1, arr2):
     if arr1.shape[1] != 1:
         arr1 = arr1.T
     if arr2.shape[1] != 1:
-        arr2 = arr2.T
+        arr2 = np.array(arr2).T
 
     arr1 = np.squeeze(arr1)
     arr2 = np.squeeze(arr2)
