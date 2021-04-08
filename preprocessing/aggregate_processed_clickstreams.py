@@ -78,6 +78,7 @@ print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 
 print('clicks', clicks.shape)
 print('(clicks.sum(axis=1) == 0)', type(clicks.sum(axis=1) == 0), (clicks.sum(axis=1) == 0).shape)
 diag_entries = np.squeeze(np.array(clicks.sum(axis=1) == 0))
+diag_entries = diag_entries.astype(int)
 print('diag_entries', diag_entries.shape)
 clicks = clicks + ss.diags(diag_entries) # Adding self loops to pages with 0 outgoing clicks
 print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks after adding self loops')
