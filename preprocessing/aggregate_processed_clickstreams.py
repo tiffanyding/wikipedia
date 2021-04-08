@@ -80,7 +80,9 @@ save_to_pickle(pi, save_to,
 # Row num_pages corresponds to exit state (indexing from 0)
 num_pages = aggregated_matrix.shape[0] - 1
 total_page_views = aggregated_matrix.sum(axis=0)
+print('total_page_views', total_page_views.shape)
 num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
+print('num_clicks_out', num_clicks_out.shape)
 num_exit = num_clicks_out - total_page_views
 print('num_exit', num_exit.shape)
 # tmp = ss.csc_matrix((num_pages + 1, num_pages + 1))
