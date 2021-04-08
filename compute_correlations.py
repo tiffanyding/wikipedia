@@ -26,10 +26,7 @@ def compute_corrcoeff(arr1, arr2):
     arr1 = np.squeeze(arr1)
     arr2 = np.squeeze(arr2)
 
-    print(arr1.shape, arr2.shape)
-    # X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
     X = np.stack((arr1, arr2), axis=1).T
-    print(X.shape)
     return np.corrcoef(X)[0][1]
 
 year = '2018'
@@ -37,6 +34,7 @@ pageviews = np.load(f'results/pageviews_{year}.npy')
 
 pi = load_pickle_file(f'data/clickstream/final/pi_{year}.pkl')
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
+weighted_pageranks = load_pickle_file(f'results/weighted_pagerank_{year}.pkl')
 rw2 = load_pickle_file(f'results/rw2_{year}.pkl')
 
 # print('pageviews', pageviews.shape)
@@ -55,8 +53,11 @@ print(f'Correlation between page views and pi: {corr0:.5f}')
 corr1 = compute_corrcoeff(pageviews, pageranks)
 print(f'Correlation between page views and PageRank: {corr1:.5f}')
 
-corr2 = compute_corrcoeff(pageviews, rw2)
-print(f'Correlation between page views and Model 2: {corr2:.5f}')
+corr2 = compute_corrcoeff(pageviews, weighted_pageranks)
+print(f'Correlation between page views and weighted PageRank: {corr2:.5f}')
+
+corr3 = compute_corrcoeff(pageviews, rw2)
+print(f'Correlation between page views and Model 2: {corr3:.5f}')
 
 
 
