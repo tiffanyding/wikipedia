@@ -7,13 +7,16 @@ import time
 
 from scipy.sparse.linalg import inv
 
-def compute_unweighted_pagerank(A, d=.85, tol=1e-6):
+from utils import load_pickle_file, save_to_pickle
+
+def compute_unweighted_pagerank(adjacency_matrix, d=.85, tol=1e-6):
     '''
     Inputs:
-        A: adjacency matrix of 1s and 0s
+        adjacency_matrix: adjacency matrix of 1s and 0s
         d: damping factor. (1-d) is probability that surfer jumps to a random page
         tol: threshold for PageRank convergence
     '''
+    A = adjacency_matrix
     n = A.shape[0]
 
     # Compute uniform transition probability matrix
@@ -40,32 +43,67 @@ def compute_weighted_pagerank(P):
     # TODO (use clickstream graph)
     pass
 
-def random_walk_model1(P):
+def random_walk_model1(pi, B):
     pass
 
+def random_walk_model2(pi, C, max_len=30):
+    '''
+        max_len: Number of steps to simulate random walk for
+    '''
+    # Keep track of "number" of visits to each page over time 
+    # (not an actual number because it can be fractional)
+    num_visits = np.zeros(np.shape(pi))
+
+    # Probability distribution over pages
+    curr_locs = pi
+    for i in range(max_len):
+        num_visits += curr_locs
+        curr_locs = curr_locs * C
+
+    return num_visits
+        
 
 if __name__ == '__main__':
 
     year = '2018'
 
+    save_folder = 'results'
+
     # ---------
+    # Make save_folder if necessary
+    pathlib.Path(save_folder).mkdir(exist_ok=True)
+
+    ## 1) Load data
     A_path = f'data/wikilinkgraph/adjacency_matrix_{year}.pkl'
+    B_path = f'data/clickstream/final/B_{year}.pkl'
+    C_path = f'data/clickstream/final/C_{year}.pkl'
+    pi_path = f'data/clickstream/final/pi_{year}.pkl'
 
     # # Uncomment to test code by creating random matrix of 0s and 1s
     # num_pages = 1000
     # A = np.random.rand(num_pages, num_pages)
     # A = ss.csc_matrix(A)
 
-    with open(A_path, 'rb') as f:
-        A = pickle.load(f)
+    A = load_pickle_file(A_path)
+    B = load_pickle_file(B_path)
+    C = load_pickle_file(C_path)
+    pi = load_pickle_file(pi_path)
 
-    pr = compute_unweighted_pagerank(A, d=.85, tol=1e-6)
-
-    ## Save results
-    save_folder = 'results'
+    ## 2) Simulate random walks to estimate proportion of time spent at each page
+    #     and save results
+    # (a) PageRank
+    pr = compute_unweighted_pagerank(A, d=.85, tol=1e-8)
     save_to = f'{save_folder}/pagerank_{year}.pkl'
-    # Make folder if necessary
-    pathlib.Path(save_folder).mkdir(exist_ok=True)
-    with open(save_to, 'wb') as f:
-        pickle.dump(pr, f)
-    print(f'Saved {year} PageRanks to {save_to}')
+    save_to_pickle(pr, save_to, description=f'{year} PageRanks')
+
+    # (b) Random Walk Model 1
+    # rw1 = random_walk_model1(pi, C)
+
+    # (c) Random Walk Model 2
+    rw2 = random_walk_model2(pi, C, max_len=30)
+    save_to = f'{save_folder}/rw2_{year}.pkl'
+    save_to_pickle(pr, save_to, description=f'{year} random walk (Model 1)')
+
+
+
+    
