@@ -97,6 +97,8 @@ if __name__ == '__main__':
     C = load_pickle_file(C_path)
     pi = load_pickle_file(pi_path)
 
+    print('C', C.shape)
+
     ## 2) Simulate random walks to estimate proportion of time spent at each page
     #     and save results
     # (a) PageRank
