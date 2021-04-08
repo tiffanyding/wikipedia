@@ -50,13 +50,8 @@ def random_walk_model2(pi, C, max_len=30):
     '''
         max_len: Number of steps to simulate random walk for
     '''
-    print('pi', type(pi), pi.shape)
     pi = pi.todense()
-    print('pi', type(pi), pi.shape)
     pi = np.append(np.array(pi).T, 0) # Add 0 probability of starting at external page
-    print('pi', pi.shape)
-
-    print('C', C.shape)
 
     # Keep track of "number" of visits to each page over time 
     # (not an actual number because it can be fractional)
@@ -68,6 +63,9 @@ def random_walk_model2(pi, C, max_len=30):
         num_visits += curr_locs
         curr_locs = curr_locs * C
 
+    # Exclude visits to external 
+    num_visits = num_visits[:-1]
+    
     return num_visits
         
 
@@ -96,8 +94,6 @@ if __name__ == '__main__':
     B = load_pickle_file(B_path)
     C = load_pickle_file(C_path)
     pi = load_pickle_file(pi_path)
-
-    print('C', C.shape)
 
     ## 2) Simulate random walks to estimate proportion of time spent at each page
     #     and save results
