@@ -15,11 +15,7 @@ def load_pickle_file(path):
     return loaded_file
 
 def compute_corrcoeff(arr1, arr2):
-    # arr1 = np.squeeze(arr1)
-    # arr2 = np.squeeze(arr2)
-    print('arr1', type(arr1), arr1)
-    print('arr2', type(arr2), arr2)
-    X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1)
+    X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
     print('X', X.shape)
     return np.corrcoef(X)[0][1]
 
