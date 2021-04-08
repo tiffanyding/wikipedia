@@ -68,7 +68,8 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 # Compute B (probability transition matrix that assumes surfer never exits)
 clicks = aggregated_matrix[:-1,:]
 row_sum = clicks.sum(axis=1)
-print('clicks', clicks.shape)
+print('clicks', type(clicks), clicks.shape)
+print('row_sum', type(row_sum), row_sum.shape)
 print('row_sum[:,None]', row_sum[:,None].shape)
 B = clicks * (1 / row_sum[:,None]) # normalize each row to sum to 1
 
