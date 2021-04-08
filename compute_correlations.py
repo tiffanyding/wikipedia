@@ -21,7 +21,8 @@ def compute_corrcoeff(arr1, arr2):
         arr2 = arr2.T
 
     print(arr1.shape, arr2.shape)
-    X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
+    # X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
+    X = np.stack((arr1, arr2), axis=1).T
     return np.corrcoef(X)[0][1]
 
 year = '2018'
