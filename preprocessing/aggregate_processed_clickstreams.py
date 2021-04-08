@@ -9,7 +9,18 @@ import sys; sys.path.append('..')
 
 print('dir', os.getcwd())
 
-from .utils import load_pickle_file, save_to_pickle
+# from utils import load_pickle_file, save_to_pickle # For some reason, this is not working
+def load_pickle_file(path):
+    with open(path, 'rb') as f:
+        loaded_file = pickle.load(f)
+
+    return loaded_file
+
+def save_to_pickle(obj, save_to, description=''):
+    with open(save_to, 'wb') as f:
+        pickle.dump(obj, f)
+    print(f'Saved {description} to {save_to}')
+
 
 st = time.time()
 
