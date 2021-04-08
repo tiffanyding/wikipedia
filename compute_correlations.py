@@ -17,9 +17,9 @@ def load_pickle_file(path):
 def compute_corrcoeff(arr1, arr2):
     print('arr1.shape[1] != 1', arr1.shape[1] != 1)
     print('arr2.shape[1] != 1', arr2.shape[1] != 1)
-    if arr1.shape[1] != 1:
+    if arr1.ndim > 1 and arr1.shape[1] != 1:
         arr1 = arr1.T
-    if arr2.shape[1] != 1:
+    if arr2.ndim > 1 and arr2.shape[1] != 1:
         arr2 = np.array(arr2).T
 
     arr1 = np.squeeze(arr1)
