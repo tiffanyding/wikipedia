@@ -55,7 +55,7 @@ def random_walk_model2(pi, C, max_len=30):
     num_visits = np.zeros(np.shape(pi))
 
     # Probability distribution over pages
-    curr_locs = pi
+    curr_locs = np.append(pi, 0)
     for i in range(max_len):
         num_visits += curr_locs
         curr_locs = curr_locs * C
@@ -92,9 +92,9 @@ if __name__ == '__main__':
     ## 2) Simulate random walks to estimate proportion of time spent at each page
     #     and save results
     # (a) PageRank
-    pr = compute_unweighted_pagerank(A, d=.85, tol=1e-8)
-    save_to = f'{save_folder}/pagerank_{year}.pkl'
-    save_to_pickle(pr, save_to, description=f'{year} PageRanks')
+    # pr = compute_unweighted_pagerank(A, d=.85, tol=1e-8)
+    # save_to = f'{save_folder}/pagerank_{year}.pkl'
+    # save_to_pickle(pr, save_to, description=f'{year} PageRanks')
 
     # (b) Random Walk Model 1
     # rw1 = random_walk_model1(pi, C)
