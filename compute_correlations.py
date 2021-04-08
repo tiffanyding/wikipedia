@@ -62,7 +62,7 @@ print(f'Correlation between page views and PageRank: {corr1:.5f}')
 corr2 = compute_corrcoeff(pageviews, weighted_pageranks)
 print(f'Correlation between page views and weighted PageRank: {corr2:.5f}')
 
-corr = compute_corrcoeff(pageviews, rw1)
+corr = compute_corrcoeff(pageviews, rw1_08)
 print(f'Correlation between page views and Model 1: {corr:.5f}')
 
 corr = compute_corrcoeff(pageviews, rw2)
