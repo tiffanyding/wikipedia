@@ -112,7 +112,7 @@ if __name__ == '__main__':
     # (c) Random Walk Model 2
     rw2 = random_walk_model2(pi, C, max_len=30)
     save_to = f'{save_folder}/rw2_{year}.pkl'
-    save_to_pickle(pr, save_to, description=f'{year} random walk (Model 1)')
+    save_to_pickle(rw2, save_to, description=f'{year} random walk (Model 1)')
 
 
 
