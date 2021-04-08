@@ -86,7 +86,7 @@ num_exit = num_clicks_out - total_page_views
 tmp = aggregated_matrix[:-1,:]
 tmp = ss.hstack([tmp, num_exit])
 print('tmp', tmp.shape)
-last_row = ss.csc_matrix(([1], (0, num_pages-1)), shape=(1, num_pages))
+last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
 print('last_row', last_row)
 tmp = ss.vstack([tmp, last_row])
 C = normalize(tmp, norm='l1', axis=1)
