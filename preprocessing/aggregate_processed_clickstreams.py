@@ -67,7 +67,7 @@ aggregated_matrix = ss.csr_matrix(aggregated_matrix)
 # Compute pi (probablity of starting at each page)
 pi = aggregated_matrix[-1,:] / aggregated_matrix[-1,:].sum()
 
-save_to = os.path.join(save_folder, f'p_{year}.pkl')
+save_to = os.path.join(save_folder, f'pi_{year}.pkl')
 save_to_pickle(pi, save_to, description='pi (probability of starting at each page)')
 
 # Compute B (probability transition matrix that assumes surfer never exits)
@@ -98,6 +98,8 @@ tmp = ss.vstack([tmp, last_row])
 tmp = ss.csr_matrix(tmp)
 C = normalize(tmp, norm='l1', axis=1)
 
+print('C', C.shape)
+
 
 save_to = os.path.join(save_folder, f'C_{year}.pkl')
 save_to_pickle(pi, save_to, 
@@ -105,11 +107,10 @@ save_to_pickle(pi, save_to,
 
 # Sanity check (rows should sum to 1)
 # print(B[10,:].sum())
-
 # print(B[1000,:].sum())
 
-print(C[10,:].sum())
-print(C[1000,:].sum())
-print(C[-1,:].sum())
+# print(C[10,:].sum())
+# print(C[1000,:].sum())
+# print(C[-1,:].sum())
 
 print(f'Time taken: {(time.time() - st) / 60:.2f} min')
