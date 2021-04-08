@@ -58,7 +58,7 @@ def compute_weighted_pagerank(B, d=.85, tol=1e-6):
         print(f'Iteration {iter}. Change in l1 norm = {dist:.7f}')
     return pr
 
-def random_walk_model1(pi, B, p=.8, max_len=20):
+def random_walk_model1(pi, B, p=.8, max_len=10):
     '''
     p = parameter of Geometric distribution
     '''
@@ -75,7 +75,7 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     curr_locs = pi
     for i in range(max_len):
         weight = 1 - geom.cdf(i, p)
-        print('Weight:', weight)
+        print(f'Step {i}, weight:', weight)
         num_visits += weight * curr_locs 
         curr_locs = curr_locs * B
 
