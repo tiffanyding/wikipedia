@@ -61,6 +61,7 @@ for i in range(1,len(files)):
     aggregated_matrix = aggregated_matrix + m
 
 ## 2) Process data and save
+print('type(aggregated_matrix))', type(aggregated_matrix))
 
 # Compute pi (probablity of starting at each page)
 pi = aggregated_matrix[-1,:] / aggregated_matrix[-1,:].sum()
@@ -70,6 +71,10 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 
 # Compute B (probability transition matrix that assumes surfer never exits)
 clicks = aggregated_matrix[:-1,:]
+# count number of rows with 0 outgoing clicks
+print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks.'
+        'Assigning uniform probability of choosing next page.' )
+# TODO
 B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
 
 print('clicks row 10', clicks[10,:])
