@@ -102,7 +102,7 @@ print('C', C.shape)
 
 
 save_to = os.path.join(save_folder, f'C_{year}.pkl')
-save_to_pickle(pi, save_to, 
+save_to_pickle(C, save_to, 
         description='C (probability transition matrix that includes absorbing exit state)')
 
 # Sanity check (rows should sum to 1)
