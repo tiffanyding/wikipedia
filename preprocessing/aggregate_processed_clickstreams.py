@@ -76,8 +76,8 @@ clicks = aggregated_matrix[:-1,:]
 print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks. '
         'Adding self loops to these pages.' )
 print('clicks', clicks.shape)
-print('(clicks.sum(axis=1) == 0)', (clicks.sum(axis=1) == 0).shape)
-clicks = clicks + ss.diags(clicks.sum(axis=1) == 0) # Adding self loops to pages with 0 outgoing clicks
+print('(clicks.sum(axis=1) == 0)', type(clicks.sum(axis=1) == 0), (clicks.sum(axis=1) == 0).shape)
+clicks = clicks + ss.diags(np.array(clicks.sum(axis=1) == 0)) # Adding self loops to pages with 0 outgoing clicks
 print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks after adding self loops')
 B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
 
