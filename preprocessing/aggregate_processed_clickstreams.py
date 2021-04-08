@@ -62,6 +62,7 @@ for i in range(1,len(files)):
 
 ## 2) Process data and save
 print('type(aggregated_matrix))', type(aggregated_matrix))
+aggregated_matrix = ss.csr_matrix(aggregated_matrix)
 
 # Compute pi (probablity of starting at each page)
 pi = aggregated_matrix[-1,:] / aggregated_matrix[-1,:].sum()
@@ -70,19 +71,19 @@ save_to = os.path.join(save_folder, f'p_{year}.pkl')
 save_to_pickle(pi, save_to, description='pi (probability of starting at each page)')
 
 # Compute B (probability transition matrix that assumes surfer never exits)
-clicks = aggregated_matrix[:-1,:]
-# count number of rows with 0 outgoing clicks
-print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks.'
-        'Assigning uniform probability of choosing next page.' )
-# TODO
-B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
+# clicks = aggregated_matrix[:-1,:]
+# # count number of rows with 0 outgoing clicks
+# print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks. '
+#         'Assigning uniform probability of choosing next page.' )
+# # TODO
+# B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
 
-print('clicks row 10', clicks[10,:])
-print('B row 10', B[10,:])
+# print('clicks row 10', clicks[10,:])
+# print('B row 10', B[10,:])
 
-save_to = os.path.join(save_folder, f'B_{year}.pkl')
-save_to_pickle(pi, save_to, 
-        description='B (probability transition matrix that assumes surfer never exits)')
+# save_to = os.path.join(save_folder, f'B_{year}.pkl')
+# save_to_pickle(pi, save_to, 
+#         description='B (probability transition matrix that assumes surfer never exits)')
 
 # Compute C (probability transition matrix that includes absorbing exit state)
 # Row num_pages corresponds to exit state (indexing from 0)
@@ -95,6 +96,7 @@ tmp = aggregated_matrix[:-1,:]
 tmp = ss.hstack([tmp, num_exit])
 last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
 tmp = ss.vstack([tmp, last_row])
+tmp = ss.csr_matrix(tmp)
 
 
 C = normalize(tmp, norm='l1', axis=1)
@@ -106,9 +108,9 @@ save_to_pickle(pi, save_to,
         description='C (probability transition matrix that includes absorbing exit state)')
 
 # Sanity check
-print(B[10,:].sum())
+# print(B[10,:].sum())
 print(C[10,:].sum())
-print(B[1000,:].sum())
+# print(B[1000,:].sum())
 print(C[1000,:].sum())
 
 print(f'Time taken: {(time.time() - st) / 60:.2f} min')
