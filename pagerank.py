@@ -51,7 +51,7 @@ def random_walk_model2(pi, C, max_len=30):
         max_len: Number of steps to simulate random walk for
     '''
     print('pi', type(pi), pi.shape)
-    pi = np.append(np.array(pi), 0) # Add 0 probability of starting at external page
+    pi = np.append(np.array(pi).T, 0) # Add 0 probability of starting at external page
     print('pi', pi.shape)
 
     print('C', C.shape)
