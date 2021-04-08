@@ -15,6 +15,7 @@ def load_pickle_file(path):
     return loaded_file
 
 def compute_corrcoeff(arr1, arr2):
+    print('arr2 initially', arr2.shape)
     if arr1.ndim > 1 and arr1.shape[1] != 1:
         arr1 = arr1.T
     if arr2.ndim > 1 and arr2.shape[1] != 1:
@@ -41,7 +42,7 @@ print('pageranks', pageranks.shape)
 print('rw2', rw2.shape)
 print('pi', pi.shape)
 
-pageranks = np.array(pageranks).T
+# pageranks = np.array(pageranks).T
 
 # print('pageranks', pageranks.shape)
 # print('pageviews', pageviews.shape)
