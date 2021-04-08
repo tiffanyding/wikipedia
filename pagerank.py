@@ -50,6 +50,8 @@ def random_walk_model2(pi, C, max_len=30):
     '''
         max_len: Number of steps to simulate random walk for
     '''
+    pi = np.append(pi, 0) # Add 0 probability of starting at external page
+
     # Keep track of "number" of visits to each page over time 
     # (not an actual number because it can be fractional)
     num_visits = np.zeros(np.shape(pi))
