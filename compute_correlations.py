@@ -32,6 +32,7 @@ def compute_corrcoeff(arr1, arr2):
 year = '2018'
 pageviews = np.load(f'results/pageviews_{year}.npy')
 
+pi = load_pickle_file(f'data/clickstream/final/pi_{year}.pkl')
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
 rw2 = load_pickle_file(f'results/rw2_{year}.pkl')
 
