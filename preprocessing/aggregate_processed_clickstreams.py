@@ -71,19 +71,20 @@ save_to = os.path.join(save_folder, f'pi_{year}.pkl')
 save_to_pickle(pi, save_to, description='pi (probability of starting at each page)')
 
 # Compute B (probability transition matrix that assumes surfer never exits)
-# clicks = aggregated_matrix[:-1,:]
-# # count number of rows with 0 outgoing clicks
-# print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks. '
-#         'Assigning uniform probability of choosing next page.' )
-# # TODO
-# B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
+clicks = aggregated_matrix[:-1,:]
+# count number of rows with 0 outgoing clicks
+print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks. '
+        'Adding self loops to these pages.' )
+clicks = clicks + ss.diags(clicks.sum(axis=1) == 0) # Adding self loops to pages with 0 outgoing clicks
+print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks after adding self loops')
+B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
 
-# print('clicks row 10', clicks[10,:])
-# print('B row 10', B[10,:])
+print('clicks row 10', clicks[10,:])
+print('B row 10', B[10,:])
 
-# save_to = os.path.join(save_folder, f'B_{year}.pkl')
-# save_to_pickle(pi, save_to, 
-#         description='B (probability transition matrix that assumes surfer never exits)')
+save_to = os.path.join(save_folder, f'B_{year}.pkl')
+save_to_pickle(pi, save_to, 
+        description='B (probability transition matrix that assumes surfer never exits)')
 
 # Compute C (probability transition matrix that includes absorbing exit state)
 # Row num_pages corresponds to exit state (indexing from 0)
@@ -105,9 +106,9 @@ save_to = os.path.join(save_folder, f'C_{year}.pkl')
 save_to_pickle(C, save_to, 
         description='C (probability transition matrix that includes absorbing exit state)')
 
-# Sanity check (rows should sum to 1)
-# print(B[10,:].sum())
-# print(B[1000,:].sum())
+# Sanity checks (rows should sum to 1)
+print(B[10,:].sum())
+print(B[1000,:].sum())
 
 # print(C[10,:].sum())
 # print(C[1000,:].sum())
