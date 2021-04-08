@@ -78,7 +78,7 @@ save_to_pickle(pi, save_to,
 
 # Compute C (probability transition matrix that includes absorbing exit state)
 # Row num_pages corresponds to exit state (indexing from 0)
-num_pages = aggregated_matrix.shape[0] - 1
+num_pages = aggregated_matrix.shape[0]
 total_page_views = aggregated_matrix.sum(axis=0).T
 num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
 num_exit = num_clicks_out - total_page_views
@@ -87,7 +87,7 @@ tmp = aggregated_matrix[:-1,:]
 tmp = ss.hstack([tmp, num_exit])
 print('tmp', tmp.shape)
 last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
-print('last_row', last_row)
+print('last_row', last_row.shape)
 tmp = ss.vstack([tmp, last_row])
 C = normalize(tmp, norm='l1', axis=1)
 
