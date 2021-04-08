@@ -20,9 +20,12 @@ def compute_corrcoeff(arr1, arr2):
     if arr2.shape[1] != 1:
         arr2 = arr2.T
 
+    arr1 = np.squeeze(arr1)
+    arr2 = np.squeeze(arr2)
+
     print(arr1.shape, arr2.shape)
-    X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
-    # X = np.stack((arr1, arr2), axis=1).T
+    # X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
+    X = np.stack((arr1, arr2), axis=1).T
     print(X.shape)
     return np.corrcoef(X)[0][1]
 
