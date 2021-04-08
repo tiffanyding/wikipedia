@@ -84,7 +84,7 @@ B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See h
 # print('B row 10', B[10,:])
 
 save_to = os.path.join(save_folder, f'B_{year}.pkl')
-save_to_pickle(pi, save_to, 
+save_to_pickle(B, save_to, 
         description='B (probability transition matrix that assumes surfer never exits)')
 
 # Compute C (probability transition matrix that includes absorbing exit state)
