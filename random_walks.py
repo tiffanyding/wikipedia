@@ -74,7 +74,7 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     # Probability distribution over pages
     curr_locs = pi
     for i in range(max_len):
-        weight = geom.cdf(i, p)
+        weight = 1 - geom.cdf(i, p)
         print('Weight:', weight)
         num_visits += weight * curr_locs 
         curr_locs = curr_locs * B
