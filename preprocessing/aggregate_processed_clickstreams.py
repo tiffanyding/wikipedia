@@ -91,26 +91,25 @@ num_pages = aggregated_matrix.shape[0]
 total_page_views = aggregated_matrix.sum(axis=0).T
 num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
 num_exit = total_page_views - num_clicks_out
-# tmp = ss.csc_matrix((num_pages + 1, num_pages + 1))
 tmp = aggregated_matrix[:-1,:]
 tmp = ss.hstack([tmp, num_exit])
 last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
 tmp = ss.vstack([tmp, last_row])
 tmp = ss.csr_matrix(tmp)
-
-
 C = normalize(tmp, norm='l1', axis=1)
-print('tmp row 5', tmp[5])
-print('C row 5', C[5,:])
+
 
 save_to = os.path.join(save_folder, f'C_{year}.pkl')
 save_to_pickle(pi, save_to, 
         description='C (probability transition matrix that includes absorbing exit state)')
 
-# Sanity check
+# Sanity check (rows should sum to 1)
 # print(B[10,:].sum())
-print(C[10,:].sum())
+
 # print(B[1000,:].sum())
+
+print(C[10,:].sum())
 print(C[1000,:].sum())
+print(C[-1,:].sum())
 
 print(f'Time taken: {(time.time() - st) / 60:.2f} min')
