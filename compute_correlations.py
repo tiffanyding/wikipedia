@@ -39,6 +39,7 @@ rw2 = load_pickle_file(f'results/rw2_{year}.pkl')
 print('pageviews', pageviews.shape)
 print('pageranks', pageranks.shape)
 print('rw2', rw2.shape)
+print('pi', pi.shape)
 
 pageranks = np.array(pageranks).T
 
