@@ -74,7 +74,9 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     # Probability distribution over pages
     curr_locs = pi
     for i in range(max_len):
-        num_visits += geom.cdf(i, p) * curr_locs 
+        weight = geom.cdf(i, p)
+        print('Weight:', weight)
+        num_visits += weight * curr_locs 
         curr_locs = curr_locs * B
 
     return num_visits
@@ -143,7 +145,7 @@ if __name__ == '__main__':
 
 
     # (c) Random Walk Model 1
-    rw1 = random_walk_model1(pi, C, p=.8, max_len=20)
+    rw1 = random_walk_model1(pi, B, p=.8, max_len=20)
     save_to = f'{save_folder}/rw1_{year}.pkl'
     save_to_pickle(rw1, save_to, description=f'{year} random walk (Model 1)')
 
