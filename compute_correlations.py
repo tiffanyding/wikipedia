@@ -26,9 +26,9 @@ pageviews = np.load(f'results/pageviews_{year}.npy')
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
 rw2 = load_pickle_file(f'results/pagerank_{year}.pkl')
 
-print('pageviews', pageviews)
-print('pageranks', pageranks)
-print('rw2', rw2)
+print('pageviews', pageviews.shape)
+print('pageranks', pageranks.shape)
+print('rw2', rw2.shape)
 
 pageranks = np.array(pageranks).T
 
