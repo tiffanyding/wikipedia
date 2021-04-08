@@ -39,9 +39,20 @@ def compute_unweighted_pagerank(adjacency_matrix, d=.85, tol=1e-6):
         print(f'Iteration {iter}. Change in l1 norm = {dist:.7f}')
     return pr
 
-def compute_weighted_pagerank(P):
-    # TODO (use clickstream graph)
-    pass
+def compute_weighted_pagerank(B, d=.85, tol=1e-6):
+    # Uses clickstream graph to determine transition probabilities
+    P = B
+    pr = (1 / n) * np.matrix(np.ones((1,n)))
+    prev_pr = np.matrix(np.ones((1,n)))
+    dist = np.inf
+    iter = 0
+    while dist > tol:
+        iter += 1
+        prev_pr = pr
+        pr = (1 - d) / n + (d * prev_pr * P)
+        dist = np.sum(np.abs(pr - prev_pr))
+        print(f'Iteration {iter}. Change in l1 norm = {dist:.7f}')
+    return pr
 
 def random_walk_model1(pi, B):
     pass
@@ -97,15 +108,21 @@ if __name__ == '__main__':
 
     ## 2) Simulate random walks to estimate proportion of time spent at each page
     #     and save results
-    # (a) PageRank
+    # (a) PageRank (unweighted)
     # pr = compute_unweighted_pagerank(A, d=.85, tol=1e-8)
     # save_to = f'{save_folder}/pagerank_{year}.pkl'
     # save_to_pickle(pr, save_to, description=f'{year} PageRanks')
 
-    # (b) Random Walk Model 1
+    # (b) PageRank (weighted)
+    weighted_pr = compute_weighted_pagerank(B, d=.85, tol=1e-8)
+    save_to = f'{save_folder}/weighted_pagerank_{year}.pkl'
+    save_to_pickle(weighted_pr, save_to, description=f'{year} weighted PageRanks')
+
+
+    # (c) Random Walk Model 1
     # rw1 = random_walk_model1(pi, C) # TODO
 
-    # (c) Random Walk Model 2
+    # (d) Random Walk Model 2
     rw2 = random_walk_model2(pi, C, max_len=10)
     save_to = f'{save_folder}/rw2_{year}.pkl'
     save_to_pickle(rw2, save_to, description=f'{year} random walk (Model 1)')
