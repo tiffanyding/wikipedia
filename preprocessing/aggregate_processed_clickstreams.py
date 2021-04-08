@@ -7,6 +7,8 @@ import time
 
 import sys; sys.path.append('..')
 
+print('dir', os.cwd())
+
 from utils import load_pickle_file, save_to_pickle
 
 st = time.time()
