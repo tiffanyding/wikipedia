@@ -31,6 +31,8 @@ def compute_corrcoeff(arr1, arr2):
 
 year = '2018'
 pageviews = np.load(f'results/pageviews_{year}.npy')
+pageviews_internal_and_external = load_pickle_file(f'results/pageviews_internal_and_external_{year}.pkl')
+pageviews_internal = load_pickle_file(f'results/pageviews_internal_{year}.pkl')
 
 pi = load_pickle_file(f'data/clickstream/final/pi_{year}.pkl')
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
@@ -58,6 +60,15 @@ print(f'Correlation between page views and weighted PageRank: {corr2:.5f}')
 
 corr3 = compute_corrcoeff(pageviews, rw2)
 print(f'Correlation between page views and Model 2: {corr3:.5f}')
+
+
+# Now break down into different types of page views
+
+corr4 = compute_corrcoeff(pageviews_internal, pi)
+print(f'Correlation between internal page views and pi: {corr4:.5f}')
+
+corr5 = compute_corrcoeff(pageviews_internal, rw2)
+print(f'Correlation between internal page views and Model 2: {corr5:.5f}')
 
 
 
