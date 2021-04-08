@@ -67,11 +67,17 @@ print(f'Correlation between page views and Model 2: {corr3:.5f}')
 
 # Now break down into different types of page views
 
-corr4 = compute_corrcoeff(pageviews_internal, pi)
-print(f'Correlation between internal page views and pi: {corr4:.5f}')
+corr = compute_corrcoeff(pageviews_internal, pi)
+print(f'Correlation between internal page views and pi: {corr:.5f}')
 
-corr5 = compute_corrcoeff(pageviews_internal, rw2)
-print(f'Correlation between internal page views and Model 2: {corr5:.5f}')
+corr = compute_corrcoeff(pageviews_internal, pageranks)
+print(f'Correlation between internal page views and PageRank: {corr:.5f}')
+
+corr = compute_corrcoeff(pageviews_internal, weighted_pageranks)
+print(f'Correlation between internal page views and weighted PageRank: {corr:.5f}')
+
+corr = compute_corrcoeff(pageviews_internal, rw2)
+print(f'Correlation between internal page views and Model 2: {corr:.5f}')
 
 
 
