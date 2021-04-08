@@ -63,7 +63,7 @@ def random_walk_model2(pi, C, max_len=30):
     num_visits = np.zeros(np.shape(pi))
 
     # Probability distribution over pages
-    curr_locs = np.append(pi, 0)
+    curr_locs = pi
     for i in range(max_len):
         num_visits += curr_locs
         curr_locs = curr_locs * C
