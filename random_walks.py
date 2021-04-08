@@ -75,7 +75,7 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     curr_locs = pi
     for i in range(max_len):
         num_visits += geom.cdf(i, p) * curr_locs 
-        curr_locs = curr_locs * C
+        curr_locs = curr_locs * B
 
     return num_visits
 
