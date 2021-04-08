@@ -68,7 +68,7 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 # Compute B (probability transition matrix that assumes surfer never exits)
 clicks = aggregated_matrix[:-1,:]
 row_sums = clicks.sum(axis=1) 
-B = clicks / row_sums[:, numpy.newaxis] # normalize each row to sum to 1
+B = clicks / row_sums[:, np.newaxis] # normalize each row to sum to 1
 
 save_to = os.path.join(save_folder, f'B_{year}.pkl')
 save_to_pickle(pi, save_to, 
