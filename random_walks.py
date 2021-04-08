@@ -61,7 +61,7 @@ def random_walk_model1(pi, B, p=.8, max_len=20):
     '''
     p = parameter of Geometric distribution
     '''
-    print(f'Geometric({p}):', [geom.pdf(x) for x in range(max_len)])
+    print(f'Geometric({p}):', [geom.pmf(x) for x in range(max_len)])
 
     # Keep track of "number" of visits to each page over time 
     # (not an actual number because it can be fractional)
