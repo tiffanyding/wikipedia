@@ -111,12 +111,12 @@ if __name__ == '__main__':
     ## 2) Simulate random walks to estimate proportion of time spent at each page
     #     and save results
     # (a) PageRank (unweighted)
-    # pr = compute_unweighted_pagerank(A, d=.85, tol=1e-8)
+    # pr = compute_unweighted_pagerank(A, d=.85, tol=1e-6)
     # save_to = f'{save_folder}/pagerank_{year}.pkl'
     # save_to_pickle(pr, save_to, description=f'{year} PageRanks')
 
     # (b) PageRank (weighted)
-    weighted_pr = compute_weighted_pagerank(B, d=.85, tol=1e-8)
+    weighted_pr = compute_weighted_pagerank(B, d=.85, tol=1e-6)
     save_to = f'{save_folder}/weighted_pagerank_{year}.pkl'
     save_to_pickle(weighted_pr, save_to, description=f'{year} weighted PageRanks')
 
