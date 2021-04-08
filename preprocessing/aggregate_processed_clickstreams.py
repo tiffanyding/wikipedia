@@ -71,8 +71,6 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 # Compute B (probability transition matrix that assumes surfer never exits)
 clicks = aggregated_matrix[:-1,:]
 B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
-# row_sums = clicks.sum(axis=1) 
-# B = clicks / row_sums[:, np.newaxis] 
 
 save_to = os.path.join(save_folder, f'B_{year}.pkl')
 save_to_pickle(pi, save_to, 
@@ -86,12 +84,14 @@ num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
 tmp = ss.csc_matrix((num_pages + 1, num_pages + 1))
 tmp[:num_pages,:num_pages] = aggregated_matrix[:-1,:]
 tmp[num_pages, num_pages] = 1
-row_sum = tmp.sum(axis=1)
-C = tmp * (1 / row_sum[:,None])
+C = normalize(tmp, norm='l1', axis=1)
 
 save_to = os.path.join(save_folder, f'C_{year}.pkl')
 save_to_pickle(pi, save_to, 
         description='C (probability transition matrix that includes absorbing exit state)')
 
+# Sanity check
+print(B[10,:].sum())
+print(C[10,:].sum())
 
 print(f'Time taken: {(time.time() - st) / 60:.2f} min')
