@@ -7,8 +7,6 @@ import time
 
 import sys; sys.path.append('..')
 
-print('dir', os.getcwd())
-
 # from utils import load_pickle_file, save_to_pickle # For some reason, this is not working
 def load_pickle_file(path):
     with open(path, 'rb') as f:
@@ -64,7 +62,7 @@ for i in range(1,len(files)):
 # Compute pi (probablity of starting at each page)
 pi = aggregated_matrix[-1,:] / aggregated_matrix[-1,:].sum()
 
-save_to = os.join(save_folder, f'p_{year}.pkl')
+save_to = os.path.join(save_folder, f'p_{year}.pkl')
 save_to_pickle(pi, save_to, description='pi (probability of starting at each page)')
 
 # Compute B (probability transition matrix that assumes surfer never exits)
@@ -72,7 +70,7 @@ clicks = aggregated_matrix[:-1,:]
 row_sum = clicks.sum(axis=1)
 B = clicks * (1 / row_sum[:,None]) # normalize each row to sum to 1
 
-save_to = os.join(save_folder, f'B_{year}.pkl')
+save_to = os.path.join(save_folder, f'B_{year}.pkl')
 save_to_pickle(pi, save_to, 
         description='B (probability transition matrix that assumes surfer never exits)')
 
@@ -87,7 +85,7 @@ tmp[num_pages, num_pages] = 1
 row_sum = tmp.sum(axis=1)
 C = tmp * (1 / row_sum[:,None])
 
-save_to = os.join(save_folder, f'C_{year}.pkl')
+save_to = os.path.join(save_folder, f'C_{year}.pkl')
 save_to_pickle(pi, save_to, 
         description='C (probability transition matrix that includes absorbing exit state)')
 
