@@ -15,6 +15,8 @@ def load_pickle_file(path):
     return loaded_file
 
 def compute_corrcoeff(arr1, arr2):
+    # if arr1.shape[1] 
+
     X = np.stack((np.squeeze(arr1), np.squeeze(arr2)), axis=1).T
     return np.corrcoef(X)[0][1]
 
@@ -23,6 +25,10 @@ pageviews = np.load(f'results/pageviews_{year}.npy')
 
 pageranks = load_pickle_file(f'results/pagerank_{year}.pkl')
 rw2 = load_pickle_file(f'results/pagerank_{year}.pkl')
+
+print('pageviews', pageviews)
+print('pageranks', pageranks)
+print('rw2', rw2)
 
 pageranks = np.array(pageranks).T
 
