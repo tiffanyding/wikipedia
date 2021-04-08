@@ -90,7 +90,7 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 num_pages = aggregated_matrix.shape[0]
 total_page_views = aggregated_matrix.sum(axis=0).T
 num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
-num_exit = num_clicks_out - total_page_views
+num_exit = total_page_views - num_clicks_out
 # tmp = ss.csc_matrix((num_pages + 1, num_pages + 1))
 tmp = aggregated_matrix[:-1,:]
 tmp = ss.hstack([tmp, num_exit])
