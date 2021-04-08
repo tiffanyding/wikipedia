@@ -19,7 +19,7 @@ def compute_corrcoeff(arr1, arr2):
     if arr1.ndim > 1 and arr1.shape[1] != 1:
         arr1 = arr1.T
     if arr2.ndim > 1 and arr2.shape[1] != 1:
-        arr2 = np.array(arr2).T
+        arr2 = arr2.toarray().T
 
     print('arr2 here', arr2.shape)
     arr1 = np.squeeze(arr1)
