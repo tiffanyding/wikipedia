@@ -72,6 +72,7 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 clicks = aggregated_matrix[:-1,:]
 B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
 
+print('clicks row 5', clicks[5,:])
 print('B row', B[5,:])
 
 save_to = os.path.join(save_folder, f'B_{year}.pkl')
@@ -89,8 +90,11 @@ tmp = aggregated_matrix[:-1,:]
 tmp = ss.hstack([tmp, num_exit])
 last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
 tmp = ss.vstack([tmp, last_row])
+
+
 C = normalize(tmp, norm='l1', axis=1)
-print('C row', C[5,:])
+print('tmp row 5', tmp[5,:])
+print('C row 5', C[5,:])
 
 save_to = os.path.join(save_folder, f'C_{year}.pkl')
 save_to_pickle(pi, save_to, 
