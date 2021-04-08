@@ -65,7 +65,7 @@ def random_walk_model2(pi, C, max_len=30):
 
     # Exclude visits to external 
     num_visits = num_visits[:-1]
-    
+
     return num_visits
         
 
@@ -103,10 +103,10 @@ if __name__ == '__main__':
     # save_to_pickle(pr, save_to, description=f'{year} PageRanks')
 
     # (b) Random Walk Model 1
-    # rw1 = random_walk_model1(pi, C)
+    # rw1 = random_walk_model1(pi, C) # TODO
 
     # (c) Random Walk Model 2
-    rw2 = random_walk_model2(pi, C, max_len=30)
+    rw2 = random_walk_model2(pi, C, max_len=10)
     save_to = f'{save_folder}/rw2_{year}.pkl'
     save_to_pickle(rw2, save_to, description=f'{year} random walk (Model 1)')
 
