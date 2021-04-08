@@ -115,13 +115,13 @@ for i in range(1,len(files)):
 ## 3) Compute page views
 # Sum external and internal pageviews
 pageviews_internal_and_external = aggregated_matrix.sum(axis=0)
-save_to = os.path.join(save_folder, f'results/pageviews_internal_and_external.pkl')
+save_to = f'results/pageviews_internal_and_external_{year}.pkl'
 save_to_pickle(pageviews_internal_and_external, save_to, 
         description='pageviews (internal and external)')
 
 # Sum internal pageviews only (clicks originating from other Wikipedia pages)
 pageviews_internal = aggregated_matrix[:-1,:].sum(axis=0)
-save_to = os.path.join(save_folder, f'results/pageviews_internal.pkl')
+save_to = f'results/pageviews_internal_{year}.pkl'
 save_to_pickle(pageviews_internal, save_to, 
         description='pageviews (internal)')
 
