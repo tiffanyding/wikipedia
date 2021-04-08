@@ -125,4 +125,7 @@ save_to = f'results/pageviews_internal_{year}.pkl'
 save_to_pickle(pageviews_internal, save_to, 
         description='pageviews (internal)')
 
+print(f'Total internal + external page views: {pageviews_internal_and_external.sum()}')
+print(f'Total internal page views: {pageviews_internal.sum()} ({pageviews_internal.sum() / pageviews_internal_and_external.sum() * 100:.2f}%)')
+
 print(f'Time taken: {(time.time() - st) / 60:.2f} min')
