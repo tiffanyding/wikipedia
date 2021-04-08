@@ -41,6 +41,7 @@ def compute_unweighted_pagerank(adjacency_matrix, d=.85, tol=1e-6):
 
 def compute_weighted_pagerank(B, d=.85, tol=1e-6):
     # Uses clickstream graph to determine transition probabilities
+    print('B', B.shape)
     n = B.shape[0]
     P = B
     pr = (1 / n) * np.matrix(np.ones((1,n)))
