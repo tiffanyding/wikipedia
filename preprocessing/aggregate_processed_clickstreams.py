@@ -1,11 +1,14 @@
 import glob, os
+import numpy as np
 import pandas as pd
 import pathlib
 import pickle
 import scipy.sparse as ss
 import time
 
-import sys; sys.path.append('..')
+from sklearn.preprocessing import normalize
+
+# import sys; sys.path.append('..')
 
 # from utils import load_pickle_file, save_to_pickle # For some reason, this is not working
 def load_pickle_file(path):
@@ -67,8 +70,9 @@ save_to_pickle(pi, save_to, description='pi (probability of starting at each pag
 
 # Compute B (probability transition matrix that assumes surfer never exits)
 clicks = aggregated_matrix[:-1,:]
-row_sums = clicks.sum(axis=1) 
-B = clicks / row_sums[:, np.newaxis] # normalize each row to sum to 1
+B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
+# row_sums = clicks.sum(axis=1) 
+# B = clicks / row_sums[:, np.newaxis] 
 
 save_to = os.path.join(save_folder, f'B_{year}.pkl')
 save_to_pickle(pi, save_to, 
