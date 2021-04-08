@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
 
     # (c) Random Walk Model 1
-    p = 0.3
+    p = 0.1
     rw1 = random_walk_model1(pi, B, p=p, max_len=10)
     save_to = f'{save_folder}/rw1_p={p}_{year}.pkl'
     save_to_pickle(rw1, save_to, description=f'{year} random walk (Model 1)')
