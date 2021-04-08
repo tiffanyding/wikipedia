@@ -44,11 +44,14 @@ pageranks = np.array(pageranks).T
 # print('pageranks', pageranks.shape)
 # print('pageviews', pageviews.shape)
 
+corr0 = compute_corrcoeff(pageviews, pi)
+print(f'Correlation between page views and pi: {corr0:.5f}')
+
 corr1 = compute_corrcoeff(pageviews, pageranks)
 print(f'Correlation between page views and PageRank: {corr1:.5f}')
 
 corr2 = compute_corrcoeff(pageviews, rw2)
-print(f'Correlation between Model 2 and PageRank: {corr2:.5f}')
+print(f'Correlation between page views and Model 2: {corr2:.5f}')
 
 
 
