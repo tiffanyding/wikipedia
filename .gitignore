@@ -4,6 +4,7 @@
 env/
 
 # Big data files
+*.gz
 data/clickstream
 data/wikilinkgraph/enwiki.wikilink_graph.2018-03-01.csv.gz
 
