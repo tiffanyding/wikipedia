@@ -203,6 +203,89 @@ def uniform_random_walk(pi, adjacency_matrix, p=0.8, max_len=15, return_topic_di
     else:
         return num_visits
 
+
+def uniform_random_walk2(pi, A, exit_probs, max_len=15, return_topic_distr=False,
+    compute_correlation_with=None):
+    '''
+    Similar to uniform_random_walk, except uses exit probabilities determined by clickstream rather than
+    pre-sampling length of random walk
+
+     Inputs
+        - pi: Initial distribution
+        - A: binary adjacency matrix
+        - exit_probs: array of length num_pages containing probability of exiting Wikipedia 
+          from each page
+        - max_len: Number of steps to simulate random walk for
+        - compute_correlation_with: None, or an array of length num_pages. At each step,
+          we compute the Kendall's tau correlation of the Model 2 probability distribution 
+          with this array
+    '''
+
+    print(f'Performing uniform random walk v2...')
+    pi = pi.todense()
+    pi = np.append(np.array(pi).T, 0) # Add 0 probability of starting at external page
+    num_pages = A.shape[0]
+    exit_probs = exit_probs.toarray()[:-1] # Exclude exit prob of sink node
+
+    if return_topic_distr:
+        topic_distr = [get_topic_distribution(pi)]
+
+    # Transition probability matrix is (num_pages + 1) x (num_pages + 1) matrix
+    #  - last column contains exit probabilities
+    #  - last row is 0s except for last entry, which is 1
+    #  - For all other row i, we have (1 - exit_prob) distributed uniformly over pages 
+    #    that page i links to
+    
+    degree_seq = np.asarray(A.sum(axis=1))
+    # Add 1 to each degree so that no vertex has out-degree zero
+    degree_seq += 1
+    inv_D = ss.diags(np.squeeze(np.asarray((1-exit_probs) / degree_seq)), format='csc')
+    P = inv_D * A
+
+    prob_exit = ss.csc_matrix(exit_probs)
+    P = ss.hstack([P, prob_exit])
+    last_row = ss.csc_matrix(([1], ([0], [num_pages])), shape=(1, num_pages+1))
+    P = ss.vstack([P, last_row])
+    # print(last_row)
+        
+    # Keep track of "number" of visits to each page over time 
+    # (not an actual number because it can be fractional)
+    # Weight probability distribution at each time step t by probability 
+    # that random walk has not ended before t (= 1 - cdf(t))
+    num_visits = np.zeros(np.shape(pi))
+
+    if compute_correlation_with is not None:
+        correlations = [compute_corrcoeff(pi, compute_correlation_with, use_kendalltau=True)]
+
+    # Probability distribution over pages
+    curr_locs = pi
+    for i in range(max_len):
+        num_visits += curr_locs 
+        curr_locs = curr_locs * P
+
+        if return_topic_distr:
+            topic_distr.append(get_topic_distribution(curr_locs))
+
+        if compute_correlation_with is not None:
+            correlations.append(compute_corrcoeff(curr_locs[:-1], compute_correlation_with, use_kendalltau=True))
+
+        if return_topic_distr:
+            normalized_distr = curr_locs[:-1] / curr_locs[:-1].sum() # Ignore sink node probability
+            topic_distr.append(get_topic_distribution(normalized_distr))
+
+    # Exclude visits to external 
+    num_visits = num_visits[:-1]
+
+    if return_topic_distr and compute_correlation_with is None:
+        return num_visits, np.array(topic_distr)
+    elif not return_topic_distr and compute_correlation_with is not None:
+        return num_visits, np.array(correlations)
+    elif return_topic_distr and compute_correlation_with is not None:
+        return num_visits, np.array(topic_distr), np.array(correlations)
+    else:
+        return num_visits
+
+
 if __name__ == '__main__':
 
     st = time.time()

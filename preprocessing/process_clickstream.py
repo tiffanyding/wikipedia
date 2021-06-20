@@ -15,12 +15,12 @@ def process_clickstream_file(zip_file, title_to_idx_file, save_prefix=None):
     # Read in files
     print('File: ', zip_file)
     df = pd.read_csv(zip_file, compression='gzip', sep='\t',
-                # nrows=1000, # Can uncomment when debugging
+                nrows=1000, # Can uncomment when debugging
                 names=['prev', 'curr', 'type', 'n'])
     num_rows = len(df)
 
-    # print(df[df['curr']=="Dallas_Tornado"].head(30))
-    # print(df['curr'].unique())
+    print(df[df['curr']=="Dallas_Tornado"].head(30))
+    print(df['curr'].unique())
     print('Number of rows:', num_rows)
 
     with open(title_to_idx_file, 'rb') as f:

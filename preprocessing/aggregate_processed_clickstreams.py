@@ -60,49 +60,49 @@ for i in range(1,len(files)):
     # print('m', m.shape)
     aggregated_matrix = aggregated_matrix + m
 
-# 2) Compute pi, B, and C and save
-# print('type(aggregated_matrix))', type(aggregated_matrix))
-aggregated_matrix = ss.csr_matrix(aggregated_matrix)
+## 2) Compute pi, B, and C and save
+# # print('type(aggregated_matrix))', type(aggregated_matrix))
+# aggregated_matrix = ss.csr_matrix(aggregated_matrix)
 
-# Compute pi (probablity of starting at each page)
-pi = aggregated_matrix[-1,:] / aggregated_matrix[-1,:].sum()
+# # Compute pi (probablity of starting at each page)
+# pi = aggregated_matrix[-1,:] / aggregated_matrix[-1,:].sum()
 
-save_to = os.path.join(save_folder, f'pi_{year}.pkl')
-save_to_pickle(pi, save_to, description='pi (probability of starting at each page)')
+# save_to = os.path.join(save_folder, f'pi_{year}.pkl')
+# save_to_pickle(pi, save_to, description='pi (probability of starting at each page)')
 
-# Compute B (probability transition matrix that assumes surfer never exits)
-clicks = aggregated_matrix[:-1,:]
-# count number of rows with 0 outgoing clicks
-print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks. '
-        'Adding self loops to these pages.' )
-diag_entries = np.squeeze(np.array(clicks.sum(axis=1) == 0)).astype(int)
-clicks = clicks + ss.diags(diag_entries) # Adding self loops to pages with 0 outgoing clicks
-print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks after adding self loops')
-B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
+# # Compute B (probability transition matrix that assumes surfer never exits)
+# clicks = aggregated_matrix[:-1,:]
+# # count number of rows with 0 outgoing clicks
+# print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks. '
+#         'Adding self loops to these pages.' )
+# diag_entries = np.squeeze(np.array(clicks.sum(axis=1) == 0)).astype(int)
+# clicks = clicks + ss.diags(diag_entries) # Adding self loops to pages with 0 outgoing clicks
+# print(f'{(clicks.sum(axis=1) == 0).sum()} out of {clicks.shape[1]} pages have 0 outgoing clicks after adding self loops')
+# B = normalize(clicks, norm='l1', axis=1) # normalize each row to sum to 1 (See https://stackoverflow.com/questions/12305021/efficient-way-to-normalize-a-scipy-sparse-matrix)
 
-# print('clicks row 10', clicks[10,:])
-# print('B row 10', B[10,:])
+# # print('clicks row 10', clicks[10,:])
+# # print('B row 10', B[10,:])
 
-save_to = os.path.join(save_folder, f'B_{year}.pkl')
-save_to_pickle(B, save_to, 
-        description='B (probability transition matrix that assumes surfer never exits)')
+# save_to = os.path.join(save_folder, f'B_{year}.pkl')
+# save_to_pickle(B, save_to, 
+#         description='B (probability transition matrix that assumes surfer never exits)')
 
-# Compute C (probability transition matrix that includes absorbing exit state)
-# Row num_pages corresponds to exit state (indexing from 0)
-num_pages = aggregated_matrix.shape[0]
-total_page_views = aggregated_matrix.sum(axis=0).T
-num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
-num_exit = total_page_views - num_clicks_out
-tmp = aggregated_matrix[:-1,:]
-tmp = ss.hstack([tmp, num_exit])
-last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
-tmp = ss.vstack([tmp, last_row])
-tmp = ss.csr_matrix(tmp)
-C = normalize(tmp, norm='l1', axis=1)
+# # Compute C (probability transition matrix that includes absorbing exit state)
+# # Row num_pages corresponds to exit state (indexing from 0)
+# num_pages = aggregated_matrix.shape[0]
+# total_page_views = aggregated_matrix.sum(axis=0).T
+# num_clicks_out = aggregated_matrix[:-1,:].sum(axis=1)
+# num_exit = total_page_views - num_clicks_out
+# tmp = aggregated_matrix[:-1,:]
+# tmp = ss.hstack([tmp, num_exit])
+# last_row = ss.csc_matrix(([1], ([0], [num_pages-1])), shape=(1, num_pages))
+# tmp = ss.vstack([tmp, last_row])
+# tmp = ss.csr_matrix(tmp)
+# C = normalize(tmp, norm='l1', axis=1)
 
-save_to = os.path.join(save_folder, f'C_{year}.pkl')
-save_to_pickle(C, save_to, 
-        description='C (probability transition matrix that includes absorbing exit state)')
+# save_to = os.path.join(save_folder, f'C_{year}.pkl')
+# save_to_pickle(C, save_to, 
+#         description='C (probability transition matrix that includes absorbing exit state)')
 
 # Sanity checks (rows should sum to 1)
 # print(B[10,:].sum())

@@ -66,6 +66,7 @@ if __name__ == "__main__":
     weighted_pageranks = load_pickle_file(f'results/weighted_pagerank_{year}.pkl')
 
     uniform_08 = load_pickle_file(f'results/uniform_p=0.8_{year}.pkl')
+    uniform_wexit = load_pickle_file(f'results/uniform_wexit_{year}.pkl')
 
     rw1_00001 = load_pickle_file(f'results/rw1_p=0.01_{year}.pkl')
     rw1_001 = load_pickle_file(f'results/rw1_p=0.01_{year}.pkl')
@@ -150,16 +151,18 @@ if __name__ == "__main__":
     # corr = compute_corrcoeff(pageviews_internal, rw2)
     # print(f'Correlation between internal page views and Model 2: {corr:.5f}')
 
-    # Compute correlation matrix
+    # Compute correlation matrix 
     arr_list = [pageviews_internal_and_external, pi, pageviews_internal, exit_prob,
                 pageranks,
-                uniform_08,
+                uniform_08, uniform_wexit,
                 rw1_03, rw1_08, rw2]
     names = ['\\textbf{Total PV}', '\\textbf{External PV}', '\\textbf{Internal PV}', '\\textbf{Exit prob.}',
             '\\textbf{PR}',
-            '\\textbf{Uniform}$^{(0.8)}$',
+            '\\textbf{Uniform}$^{(0.8)}$', '\\textbf{Uniform}$^{\\text{exit}}}$',
             '\\textbf{M1}$^{(0.3)}$', '\\textbf{M1}$^{(0.8)}$', '\\textbf{M2}'] # UPDATE!
     print('names:', names)
     get_corrcoeff_matrix(arr_list, use_kendalltau=True, print_latex=True, latex_names=names)
+
+    # Compute correlation matrix - V2
 
     print(f'Time taken: {(time.time() - st) / 60:.2f} min')

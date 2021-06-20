@@ -15,9 +15,12 @@ Run `. create_venv.sh`
 
 ## Prepare Wikipedia clickstream data
 [WIP. I will likely redo this section to incorporate the indices generated from processing WikiLinkGraphs]
+Part I:
 1. Download the Wikipedia clickstream data by running `bash scripts/download_clickstream_data.sh`. This downloads the clickstream data for Jan 2018-Dec 2018 to `data/clickstream`. To modify which months are downloaded, you can edit the list of URLs in `data/wiki_clickstream_urls.txt`.
 1. If you are on the CS grid, run `bash preprocessing/generate_clickstream_processing_script` and then run `bash preprocessing/process_all_clickstream_files.sh`. This submits one job per data file and saves processed filed to `data/clickstream/cleaned`.
 1. Gather the outputs by running `python preprocessing/aggregate_processed_clickstreams.py`.
+Part II:
+1. Compute page views by running `python preprocessing/compute_pageviews_using_clickstream.py`.
 
 ## Running analysis
 The code for this is not very well organized...
